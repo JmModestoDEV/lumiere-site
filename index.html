@@ -3,9 +3,10 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Lumière | Agência de social media</title>
+  <title>Lumière | Agência de social media para empresas de todo o Brasil</title>
   <meta name="description" content="A Lumière é uma agência de social media do Rio de Janeiro: gestão de Instagram, produção de conteúdo, tráfego pago, design, branding e criação de sites.">
   <meta name="theme-color" content="#0A0A0A">
+  <script>document.documentElement.classList.add("js");</script>
 
   <meta property="og:type" content="website">
   <meta property="og:title" content="Lumière | Sua marca sob a luz certa">
@@ -28,16 +29,21 @@
     <a class="site-header__logo" href="#topo" aria-label="Lumière, ir para o início">
       <img src="assets/logo.png" alt="Lumière" width="140" height="40">
     </a>
-    <nav class="site-header__nav" aria-label="Principal">
+    <nav class="site-header__nav" id="menu-principal" aria-label="Principal">
       <ul>
         <li><a href="#servicos">Serviços</a></li>
         <li><a href="#metodo">Método</a></li>
-        <li><a href="#cases">Depoimentos</a></li>
+        <li><a href="#cases">Cases</a></li>
         <li><a href="#sobre">Sobre</a></li>
         <li><a href="#contato">Contato</a></li>
       </ul>
     </nav>
-    <a class="btn btn--primary" href="#contato">Contrate</a>
+    <a class="btn btn--primary site-header__cta" href="#contato">Fale conosco</a>
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="menu-principal" aria-label="Abrir menu">
+      <span class="menu-toggle__bar"></span>
+      <span class="menu-toggle__bar"></span>
+      <span class="menu-toggle__bar"></span>
+    </button>
   </header>
 
   <main id="conteudo">
@@ -55,7 +61,7 @@
           <a class="btn btn--primary"
              href="https://wa.me/55DDDNUMERO?text=Ol%C3%A1!%20Vim%20pelo%20site%20da%20Lumi%C3%A8re."
              target="_blank" rel="noopener noreferrer">Falar no WhatsApp</a>
-          <a class="btn btn--ghost" href="#cases">Ver resultados</a>
+          <a class="btn btn--ghost" href="#cases">Ver cases</a>
         </div>
       </div>
       <!-- TODO: visual principal do hero (imagem ou vídeo) -->
@@ -63,7 +69,7 @@
 
     <!-- 3. Prova social -->
     <section class="proof" aria-labelledby="prova-titulo">
-      <h2 id="prova-titulo" class="proof__title">Marcas que já foram atingidas pela nossa luz</h2>
+      <h2 id="prova-titulo" class="proof__title">Marcas que já passaram pela nossa luz</h2>
       <ul class="proof__logos">
         <!-- TODO: logos reais dos clientes (com autorização) -->
         <li>[Logo cliente 1]</li>
@@ -195,19 +201,19 @@
     <!-- 9. FAQ (details/summary: acordeão nativo, sem JavaScript) -->
     <section class="faq" id="faq" aria-labelledby="faq-titulo">
       <h2 id="faq-titulo" class="section-title">Perguntas frequentes</h2>
-      <details class="faq__item">
+      <details class="faq__item" name="faq">
         <summary>Em quanto tempo vejo resultados?</summary>
         <p>[Resposta a definir com a Lumière.]</p>
       </details>
-      <details class="faq__item">
+      <details class="faq__item" name="faq">
         <summary>Como funciona o contrato?</summary>
         <p>[Resposta a definir com a Lumière.]</p>
       </details>
-      <details class="faq__item">
+      <details class="faq__item" name="faq">
         <summary>Vocês atendem qualquer segmento?</summary>
         <p>[Resposta a definir com a Lumière.]</p>
       </details>
-      <details class="faq__item">
+      <details class="faq__item" name="faq">
         <summary>Como começamos?</summary>
         <p>[Resposta a definir com a Lumière.]</p>
       </details>
@@ -269,7 +275,8 @@
         <li><a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer">Instagram</a></li>
       </ul>
     </nav>
-    <p class="site-footer__copy">&copy; 2026 Lumière. Todos os direitos reservados.</p>
+    <p class="site-footer__copy">&copy; <span id="ano">2026</span> Lumière. Todos os direitos reservados.</p>
   </footer>
+  <script src="js/main.js"></script>
 </body>
 </html>
