@@ -1,0 +1,594 @@
+/* =========================================================
+   Lumière | style.css
+   Ordem: 1) Variáveis  2) Reset e base  3) Componentes
+          4) Seções     5) Telas maiores  6) Acessibilidade
+   Abordagem mobile-first: o padrão é o celular; as media
+   queries (min-width) acrescentam ajustes para telas maiores.
+   ========================================================= */
+
+/* 1) Variáveis (custom properties): mude aqui e o site todo muda */
+:root {
+  --color-bg: #0a0a0a;
+  --color-surface: #161616;
+  --color-surface-2: #1f1f1f;
+  --color-border: #2a2a2a;
+  --color-text: #f5f5f2;
+  --color-muted: #a3a3a3;
+  --color-primary: #d91e2a;
+  --color-primary-hover: #b91823;
+
+  --font-heading: "Playfair Display", Georgia, serif;
+  --font-body: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  --space-1: 0.5rem;
+  --space-2: 1rem;
+  --space-3: 1.5rem;
+  --space-4: 2.5rem;
+  --space-section: 4.5rem;
+
+  --radius: 12px;
+  --container: 1120px;
+  /* Margem lateral que centraliza o conteúdo até a largura máxima */
+  --gutter: max(1.25rem, calc((100% - var(--container)) / 2));
+}
+
+/* 2) Reset e base */
+*,
+*::before,
+*::after {
+  box-sizing: border-box; /* width inclui padding e borda */
+}
+
+* {
+  margin: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+ul,
+ol {
+  padding: 0;
+  list-style: none;
+}
+
+a {
+  color: inherit;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  line-height: 1.15;
+}
+
+/* clamp(mínimo, ideal, máximo): fonte que cresce com a tela */
+h1 {
+  font-size: clamp(2.5rem, 8vw, 4.5rem);
+}
+
+h2,
+.section-title {
+  font-size: clamp(1.75rem, 4.5vw, 2.75rem);
+}
+
+h3 {
+  font-size: 1.25rem;
+}
+
+.section-title {
+  margin-bottom: var(--space-4);
+}
+
+/* 3) Componentes */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.8rem 1.5rem;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  font: inherit;
+  font-weight: 500;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.2s, border-color 0.2s, transform 0.2s;
+}
+
+.btn:active {
+  transform: translateY(1px);
+}
+
+.btn--primary {
+  background: var(--color-primary);
+  color: #fff;
+}
+
+.btn--primary:hover {
+  background: var(--color-primary-hover);
+}
+
+.btn--ghost {
+  border-color: var(--color-border);
+  color: var(--color-text);
+}
+
+.btn--ghost:hover {
+  border-color: var(--color-text);
+}
+
+.card {
+  padding: var(--space-3);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  transition: border-color 0.2s, transform 0.2s;
+}
+
+.card:hover {
+  border-color: var(--color-primary);
+  transform: translateY(-4px);
+}
+
+.card__title {
+  margin-bottom: var(--space-1);
+}
+
+.card p {
+  color: var(--color-muted);
+}
+
+/* Grade responsiva sem media query: as colunas se ajustam sozinhas */
+.services__grid,
+.cases__grid,
+.testimonials__grid {
+  display: grid;
+  gap: var(--space-3);
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 17rem), 1fr));
+}
+
+/* Acessibilidade: link para pular ao conteúdo (aparece ao usar Tab) */
+.skip-link {
+  position: absolute;
+  top: -4rem;
+  left: var(--space-2);
+  z-index: 100;
+  padding: 0.75rem 1rem;
+  background: var(--color-primary);
+  color: #fff;
+  border-radius: 8px;
+}
+
+.skip-link:focus {
+  top: var(--space-2);
+}
+
+:focus-visible {
+  outline: 3px solid var(--color-primary);
+  outline-offset: 3px;
+}
+
+/* 4) Seções */
+
+/* Cabeçalho (grudado no topo) */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+  padding: 0.75rem var(--gutter);
+  background: rgba(10, 10, 10, 0.85);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.site-header__nav {
+  display: none; /* no celular, o menu completo virá com JavaScript */
+}
+
+.site-header__nav ul {
+  display: flex;
+  gap: var(--space-3);
+}
+
+.site-header__nav a {
+  color: var(--color-muted);
+  font-size: 0.95rem;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.site-header__nav a:hover {
+  color: var(--color-text);
+}
+
+/* Padding lateral igual em todas as seções */
+.hero,
+.proof,
+.services,
+.method,
+.cases,
+.about,
+.testimonials,
+.faq,
+.contact {
+  padding: var(--space-section) var(--gutter);
+}
+
+/* Evita que o cabeçalho cubra o título ao clicar em um link */
+section[id] {
+  scroll-margin-top: 4.5rem;
+}
+
+/* Hero com um brilho vermelho ao fundo (a "luz" da Lumière) */
+.hero {
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-height: 80vh;
+  min-height: 80svh;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  top: -25rem;
+  right: -20rem;
+  width: 60rem;
+  height: 60rem;
+  background: radial-gradient(circle, rgba(217, 30, 42, 0.35) 0%, rgba(217, 30, 42, 0) 65%);
+  pointer-events: none;
+}
+
+.hero__text {
+  position: relative;
+  max-width: 44rem;
+}
+
+.hero__subtitle {
+  max-width: 36rem;
+  margin-top: var(--space-3);
+  color: var(--color-muted);
+  font-size: 1.125rem;
+}
+
+.hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-top: var(--space-4);
+}
+
+/* Prova social */
+.proof {
+  background: var(--color-surface);
+}
+
+.proof__title {
+  margin-bottom: var(--space-3);
+  color: var(--color-muted);
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.proof__logos {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-2);
+}
+
+.proof__logos li {
+  padding: 0.75rem 1.25rem;
+  border: 1px dashed var(--color-border);
+  border-radius: 8px;
+  color: var(--color-muted);
+  font-size: 0.9rem;
+}
+
+/* Método: numeração automática com contador CSS */
+.method {
+  background: var(--color-surface);
+}
+
+.method__steps {
+  display: grid;
+  gap: var(--space-3);
+  counter-reset: step;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr));
+}
+
+.method__step {
+  counter-increment: step;
+}
+
+.method__step::before {
+  content: counter(step, decimal-leading-zero);
+  display: block;
+  margin-bottom: var(--space-1);
+  color: var(--color-primary);
+  font-family: var(--font-heading);
+  font-size: 2.5rem;
+}
+
+.method__step p {
+  margin-top: var(--space-1);
+  color: var(--color-muted);
+}
+
+/* Cases */
+.case {
+  overflow: hidden;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+}
+
+.case figure {
+  display: flex;
+  align-items: flex-end;
+  aspect-ratio: 16 / 10;
+  padding: var(--space-2);
+  background: var(--color-surface-2);
+  color: var(--color-muted);
+}
+
+.case__result {
+  padding: var(--space-2) var(--space-3);
+  font-family: var(--font-heading);
+  font-size: 1.25rem;
+}
+
+/* Sobre */
+.about__text {
+  max-width: 44rem;
+}
+
+.about__text p {
+  color: var(--color-muted);
+}
+
+.about__highlights {
+  display: grid;
+  gap: var(--space-1);
+  margin-top: var(--space-3);
+}
+
+.about__highlights li {
+  position: relative;
+  padding-left: 1.75rem;
+}
+
+.about__highlights li::before {
+  content: "";
+  position: absolute;
+  top: 0.6em;
+  left: 0;
+  width: 0.75rem;
+  height: 0.75rem;
+  background: var(--color-primary);
+  border-radius: 50%;
+}
+
+/* Depoimentos */
+.testimonials {
+  background: var(--color-surface);
+}
+
+.testimonial {
+  padding: var(--space-3);
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+}
+
+.testimonial blockquote::before {
+  content: "\201C";
+  display: block;
+  color: var(--color-primary);
+  font-family: var(--font-heading);
+  font-size: 3rem;
+  line-height: 1;
+}
+
+.testimonial figcaption {
+  margin-top: var(--space-2);
+  color: var(--color-muted);
+  font-size: 0.9rem;
+}
+
+/* FAQ (details/summary estilizado) */
+.faq__item {
+  max-width: 52rem;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.faq__item summary {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-2);
+  padding: var(--space-2) 0;
+  font-weight: 500;
+  list-style: none;
+  cursor: pointer;
+}
+
+.faq__item summary::-webkit-details-marker {
+  display: none;
+}
+
+.faq__item summary::after {
+  content: "+";
+  color: var(--color-primary);
+  font-size: 1.5rem;
+  line-height: 1;
+  transition: transform 0.2s;
+}
+
+.faq__item[open] summary::after {
+  transform: rotate(45deg);
+}
+
+.faq__item p {
+  padding-bottom: var(--space-2);
+  color: var(--color-muted);
+}
+
+/* Contato */
+.contact {
+  display: grid;
+  gap: var(--space-4);
+  background: var(--color-surface);
+}
+
+.contact__text p {
+  margin: var(--space-2) 0 var(--space-3);
+  color: var(--color-muted);
+}
+
+.contact__form {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.field {
+  display: grid;
+  gap: 0.4rem;
+}
+
+.field label {
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.field input,
+.field textarea {
+  width: 100%;
+  padding: 0.8rem 1rem;
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  color: var(--color-text);
+  font: inherit;
+}
+
+.field textarea {
+  min-height: 8rem;
+  resize: vertical;
+}
+
+.field--check {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+}
+
+.field--check input {
+  width: auto;
+  margin-top: 0.3rem;
+  accent-color: var(--color-primary);
+}
+
+.field--check label {
+  color: var(--color-muted);
+  font-weight: 400;
+}
+
+.field--check a {
+  color: var(--color-text);
+}
+
+/* Rodapé */
+.site-footer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2) var(--space-4);
+  padding: var(--space-4) var(--gutter);
+  border-top: 1px solid var(--color-border);
+  color: var(--color-muted);
+  font-size: 0.9rem;
+}
+
+.site-footer__brand {
+  color: var(--color-text);
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+}
+
+.site-footer ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}
+
+.site-footer a {
+  text-decoration: none;
+}
+
+.site-footer a:hover {
+  color: var(--color-text);
+  text-decoration: underline;
+}
+
+.site-footer__copy {
+  flex-basis: 100%;
+}
+
+/* 5) Telas maiores */
+@media (min-width: 768px) {
+  :root {
+    --space-section: 6rem;
+  }
+
+  .site-header__nav {
+    display: block;
+  }
+}
+
+@media (min-width: 900px) {
+  .contact {
+    grid-template-columns: 1fr 1fr;
+    align-items: start;
+  }
+}
+
+/* 6) Quem prefere menos movimento no sistema */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    transition: none !important;
+  }
+}
